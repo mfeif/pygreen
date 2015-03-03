@@ -86,7 +86,6 @@ class PyGreen:
         change the way files are generated, like using another template
         language or transforming css...
         """
-        self.file_renderer = file_renderer
         self.app.add_url_rule("/", "root",
                               lambda: self.file_renderer("index.html"),
                               methods=["GET", "POST", "PUT", "DELETE"])
