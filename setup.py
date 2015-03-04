@@ -21,7 +21,8 @@ setup(name='pygreen',
         "flask >= 0.10.1",
         "mako >= 0.8.0",
         "argparse",
-        "markdown",
+        "Plim",
+        "markdown"  # plim pulls in markdown2, but I want markdown for extensions
         ],
      )
 
