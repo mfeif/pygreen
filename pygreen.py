@@ -33,18 +33,21 @@ import logging
 import re
 import argparse
 
+from plim_hook import plim_preprocessor
+
 _logger = logging.getLogger(__name__)
 
 
-class PyGreen:
+
+
+class PyGreen(object):
 
     def __init__(self):
-        # the Bottle application
         self.app = flask.Flask(__name__, static_folder=None,
                                template_folder=None)
         # a set of strings that identifies the extension of the files
         # that should be processed using Mako
-        self.template_exts = set(["html"])
+        self.template_exts = set(["html", "plim"])
         # the folder where the files to serve are located. Do not set
         # directly, use set_folder instead
         self.folder = "."
@@ -52,12 +55,12 @@ class PyGreen:
         # the TemplateLookup of Mako
         self.templates = TemplateLookup(
             directories=[self.folder],
-            imports=["from markdown import markdown"],
+            preprocessor=plim_preprocessor, # this jacks in plim
             input_encoding="utf-8",
             collection_size=100,
         )
         # A list of regular expression. Files whose the name match
-        # one of those regular expressions will not be outputed when generating
+        # one of those regular expressions will not be output when generating
         # a static version of the web site
         self.file_exclusion = [r".*\.mako", r".*\.py", r"(^|.*\/)\..*"]
 
