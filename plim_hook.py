@@ -15,8 +15,6 @@ import plim
 
 # markdown and my wanted extensions
 import markdown
-from markdown.extensions.smarty import SmartyExtension
-from markdown.extensions.extra import ExtraExtension
 
 FIND_MARKDOWN_RE = re.compile('-\s*(?P<lang>md|markdown)\s*')
 
@@ -24,7 +22,11 @@ def my_markdown(text):
     # configure the markdown the way I want it...
     return markdown.markdown(
         text, output_format='html5',
-        extensions=[ SmartyExtension(), ExtraExtension() ]
+        extensions=[ 'markdown.extensions.smarty',
+                     'markdown.extensions.extra',
+                     'markdown.extensions.toc',
+                     'markdown.extensions.nl2br'
+                    ]
     )
 
 # ripped off from plim.lexer.parse_markup_languages...
