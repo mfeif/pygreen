@@ -14,7 +14,7 @@ import logging
 import re
 import argparse
 import sys
-import markdown
+import mistletoe  # a markdown implementation
 import waitress
 
 _logger = logging.getLogger(__name__)
@@ -40,15 +40,15 @@ class PyGreen:
         self.app.root_path = "."
         # the TemplateLookup of Mako
         self.templates = TemplateLookup(directories=[self.folder],
-            imports=["from markdown import markdown"],
-            input_encoding='iso-8859-1',
+            imports=["from mistletoe import markdown"],
+            input_encoding='utf8',
             collection_size=100,
             strict_undefined=True,
             )
         # A list of regular expression. Files whose the name match
         # one of those regular expressions will not be outputed when generating
         # a static version of the web site
-        self.file_exclusion = [r".*\.mako", r".*\.py", r"(^|.*\/)\..*"]
+        self.file_exclusion = [r".*\.mako", r".*\.py", r".*\.md", r"(^|.*\/)\..*"]
         def is_public(path):
             for ex in self.file_exclusion:
                 if re.match(ex,path):
