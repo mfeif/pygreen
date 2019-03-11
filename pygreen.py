@@ -14,12 +14,25 @@ import logging
 import re
 import argparse
 import sys
-import mistletoe  # a markdown implementation
+import markdown
 import waitress
 
 _logger = logging.getLogger(__name__)
 
 sys.path.append(".")
+
+MD_EXTENSIONS = [
+    'extra', # https://python-markdown.github.io/extensions/
+    'sane_lists',
+    'smarty',
+    'pymdownx.smartsymbols', # https://facelessuser.github.io/pymdown-extensions/extensions/smartsymbols/
+]
+
+def mdown(text):
+    """Custom calling of markdown to turn on the features I want."""
+    return markdown.markdown(text, output_format='html5',
+        extensions=MD_EXTENSIONS, encoding='utf-8')
+
 
 class PyGreen:
 
@@ -40,7 +53,7 @@ class PyGreen:
         self.app.root_path = "."
         # the TemplateLookup of Mako
         self.templates = TemplateLookup(directories=[self.folder],
-            imports=["from mistletoe import markdown"],
+            imports=['from pygreen import mdown'],
             input_encoding='utf8',
             collection_size=100,
             strict_undefined=True,

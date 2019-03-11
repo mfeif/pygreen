@@ -137,10 +137,11 @@ setup(
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'flask ~= 1.0.2',
-        'mako ~= 1.0.7',
-        'markdown ~= 2.6.11',
-        'waitress ~= 1.1.0',
+        'flask',
+        'mako',
+        'markdown',
+        'waitress',
+        'pymdown-extensions'
     ],  # Optional
 
     # List additional groups of dependencies here (e.g. development
