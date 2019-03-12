@@ -61,7 +61,9 @@ class PyGreen:
         # A list of regular expression. Files whose the name match
         # one of those regular expressions will not be outputed when generating
         # a static version of the web site
-        self.file_exclusion = [r".*\.mako", r".*\.py", r".*\.md", r"(^|.*\/)\..*"]
+        self.file_exclusion = [r".*\.mako", r".*\.py",
+                               r".*\.md", r".*\.scss", r".*\.map",
+                               r"_.*", r"(^|.*\/)\..*"]
         def is_public(path):
             for ex in self.file_exclusion:
                 if re.match(ex,path):
