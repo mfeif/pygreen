@@ -89,9 +89,11 @@ class PyGreen:
 
         def file_renderer(path):
             if is_public(path):
-                if os.path.isdir(path):
+                # check to see if the url is a directory, then
+                # look for index.html if so
+                if os.path.isdir(os.path.join(self.folder, path)):
                     tmp = os.path.join(path, "index.html")
-                    if os.path.isfile(tmp):
+                    if os.path.isfile(os.path.join(self.folder, tmp)):
                         path = tmp
                     else:
                         return b"No index.html in path: %s" % path
